@@ -7,7 +7,6 @@ interface TurnstileOptions {
     "error-callback": () => void;
     "expired-callback": () => void;
     "before-interactive-callback": () => void;
-    "after-interactive-callback": () => void;
     "response-field-name": string;
     appearance: "always" | "execute" | "interaction-only";
     size: "normal" | "flexible" | "compact";
@@ -48,13 +47,15 @@ export async function renderTurnstile(
         callback: onChange,
         "error-callback": onChange,
         "expired-callback": onChange,
-        "before-interactive-callback": () => container.toggleAttribute("data-interactive", true),
-        "after-interactive-callback": () => container.toggleAttribute("data-interactive", false),
+        "before-interactive-callback": () => container.toggleAttribute("data-visible", true),
         "response-field-name": turnstile.responseField,
         appearance: "interaction-only",
         size: "flexible",
         language: document.documentElement.lang
     });
     if (widgetId === undefined) throw new Error("Affichage de Turnstile impossible");
-    return () => api.reset(widgetId);
+    return () => {
+        container.toggleAttribute("data-visible", false);
+        api.reset(widgetId);
+    };
 }
