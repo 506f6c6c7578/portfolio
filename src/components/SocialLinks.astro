@@ -1,7 +1,7 @@
 ---
 import { Mail } from "@lucide/astro";
 import BrandIcon from "./BrandIcon.astro";
-import { site } from "../data/site";
+import { site, contactLink } from "../data/site";
 ---
 
 <ul class="socials">
@@ -16,7 +16,7 @@ import { site } from "../data/site";
         ))
     }
     <li>
-        <a class="socials__link" href={`mailto:${site.email}`}
+        <a class="socials__link" href={contactLink.href}
            aria-label={`Envoyer un e-mail à ${site.name}`}>
             <Mail size={20}/>
         </a>
