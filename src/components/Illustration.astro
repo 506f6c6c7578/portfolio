@@ -1,0 +1,35 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { themeIllustration } from "../lib/illustration";
+
+interface Props extends HTMLAttributes<"div"> {
+    svg: string;
+}
+
+const { svg, class: className, ...attributes } = Astro.props;
+---
+
+<div class:list={["illustration", className]} {...attributes} set:html={themeIllustration(svg)}/>
+
+<style>
+    .illustration :global(.illustration__svg) {
+        width: 100%;
+        height: auto;
+    }
+
+    .illustration :global(.illustration__accent) {
+        fill: var(--color-primary);
+    }
+
+    .illustration :global(.illustration__ink) {
+        fill: var(--color-illustration-ink);
+    }
+
+    .illustration :global(.illustration__surface) {
+        fill: var(--color-body);
+    }
+
+    .illustration :global(.illustration__muted) {
+        fill: var(--color-illustration-muted);
+    }
+</style>

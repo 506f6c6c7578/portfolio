@@ -1,0 +1,85 @@
+---
+import { interests, pages, site, siteNavigation } from "../data/site";
+import { ogImage } from "../lib/brand";
+import { getPagePath, getPageUrl } from "../lib/url";
+
+interface Props {
+    type: "ProfilePage" | "AboutPage" | "ContactPage";
+    title: string;
+    description: string;
+}
+
+const { type, title, description } = Astro.props;
+const pagePath = getPagePath(Astro.url);
+const pageUrl = getPageUrl(Astro.url);
+const breadcrumbId = `${pageUrl}#breadcrumb`;
+const breadcrumbLabel = pagePath === pages.home
+    ? undefined
+    : siteNavigation.find(({ href }) => href === pagePath)?.label;
+const personId = `${site.url}/#person`;
+const websiteId = `${site.url}/#website`;
+
+const graph = {
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "Person",
+            "@id": personId,
+            name: site.name,
+            givenName: site.givenName,
+            familyName: site.familyName,
+            jobTitle: site.jobTitle,
+            description: site.description,
+            url: site.url,
+            email: `mailto:${site.email}`,
+            knowsAbout: interests,
+            knowsLanguage: site.lang,
+            sameAs: site.socials.map(({ href }) => href)
+        },
+        {
+            "@type": "WebSite",
+            "@id": websiteId,
+            url: site.url,
+            name: site.name,
+            description: site.description,
+            inLanguage: site.lang,
+            publisher: { "@id": personId }
+        },
+        {
+            "@type": type,
+            "@id": `${pageUrl}#webpage`,
+            url: pageUrl,
+            name: title,
+            description,
+            inLanguage: site.lang,
+            isPartOf: { "@id": websiteId },
+            about: { "@id": personId },
+            mainEntity: { "@id": personId },
+            ...(breadcrumbLabel && { breadcrumb: { "@id": breadcrumbId } }),
+            dateModified: new Date().toISOString(),
+            primaryImageOfPage: {
+                "@type": "ImageObject",
+                url: new URL(ogImage.path, site.url).href,
+                width: ogImage.width,
+                height: ogImage.height
+            }
+        },
+        ...(breadcrumbLabel
+            ? [
+                {
+                    "@type": "BreadcrumbList",
+                    "@id": breadcrumbId,
+                    itemListElement: [
+                        { "@type": "ListItem", position: 1, name: site.name, item: site.url },
+                        { "@type": "ListItem", position: 2, name: breadcrumbLabel, item: pageUrl }
+                    ]
+                }
+            ]
+            : [])
+    ]
+};
+
+const json = JSON.stringify(graph).replace(/</g, "\\u003c");
+---
+
+<script is:inline type="application/ld+json" set:html={json}/>

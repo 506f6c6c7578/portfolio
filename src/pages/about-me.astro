@@ -1,0 +1,50 @@
+---
+import CallToAction from "../components/CallToAction.astro";
+import CheckList from "../components/CheckList.astro";
+import StructuredData from "../components/StructuredData.astro";
+import { about } from "../data/content";
+import Base from "../layouts/Base.astro";
+---
+
+<Base title={about.metaTitle} description={about.description}>
+    <StructuredData slot="head" type="AboutPage" title={about.metaTitle}
+                    description={about.description}/>
+
+    <article class="section-sm">
+        <div class="container about">
+            <h1 class="about__title h2">{about.title}</h1>
+            <div class="about__intro">
+                {about.intro.map((paragraph) => <p>{paragraph}</p>)}
+            </div>
+
+            <section class="about__block" aria-labelledby="valeurs-titre" data-animate="up">
+                <h2 id="valeurs-titre" class="h4">{about.valuesTitle}</h2>
+                <CheckList items={about.values}/>
+            </section>
+        </div>
+    </article>
+
+    <CallToAction/>
+</Base>
+
+<style>
+    .about {
+        max-width: 55rem;
+    }
+
+    .about__title {
+        margin-bottom: 1.5rem;
+    }
+
+    .about__intro {
+        display: grid;
+        gap: 1.25rem;
+        font-size: 1.0625rem;
+    }
+
+    .about__block {
+        display: grid;
+        gap: 1.5rem;
+        margin-top: 3rem;
+    }
+</style>

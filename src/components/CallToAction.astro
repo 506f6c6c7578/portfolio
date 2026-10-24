@@ -1,0 +1,74 @@
+---
+import Illustration from "./Illustration.astro";
+import { callToAction } from "../data/content";
+import { sections } from "../data/site";
+
+const headingId = `${sections.contact}-titre`;
+---
+
+<section id={sections.contact} class="call-to-action" aria-labelledby={headingId}>
+    <div class="container">
+        <div class="call-to-action__box" data-animate="up">
+            <Illustration class="call-to-action__image" svg={callToAction.illustration}/>
+            <div class="call-to-action__content">
+                <h2 id={headingId} class="call-to-action__title">{callToAction.title}</h2>
+                <p class="call-to-action__text">{callToAction.description}</p>
+                <a class="btn btn-primary"
+                   href={callToAction.link.href}>{callToAction.link.label}</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .call-to-action {
+        padding-top: 1rem;
+        margin-bottom: 7rem;
+    }
+
+    .call-to-action__box {
+        display: grid;
+        gap: 2.5rem;
+        align-items: center;
+        padding: 4rem 1rem;
+        background-color: var(--color-light);
+        border-radius: var(--radius-xl);
+    }
+
+    .call-to-action__image {
+        width: 100%;
+        max-width: 24.5rem;
+        margin-inline: auto;
+    }
+
+    .call-to-action__title {
+        margin-bottom: 0.5rem;
+    }
+
+    .call-to-action__text {
+        margin-bottom: 1.5rem;
+    }
+
+    @media (min-width: 48rem) {
+        .call-to-action__box {
+            grid-template-columns: 7fr 5fr;
+            padding-inline: 2rem;
+        }
+
+        .call-to-action__image {
+            order: 2;
+        }
+    }
+
+    @media (min-width: 64rem) {
+        .call-to-action__box {
+            grid-template-columns: 2fr 1fr;
+        }
+    }
+
+    @media (min-width: 80rem) {
+        .call-to-action__box {
+            padding: 5rem;
+        }
+    }
+</style>

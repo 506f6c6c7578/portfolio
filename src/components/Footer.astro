@@ -1,0 +1,79 @@
+---
+import Logo from "./Logo.astro";
+import SocialLinks from "./SocialLinks.astro";
+import { site, siteNavigation } from "../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+    <div class="container footer__inner">
+        <Logo/>
+        <nav aria-label="Navigation secondaire">
+            <ul class="footer__menu">
+                {
+                    siteNavigation.map(({ label, href }) => (
+                            <li>
+                                <a class="footer__link" href={href}>
+                                    {label}
+                                </a>
+                            </li>
+                    ))
+                }
+            </ul>
+        </nav>
+        <SocialLinks/>
+    </div>
+    <div class="footer__bottom">
+        <p class="container">© {year} {site.name}. Tous droits réservés.</p>
+    </div>
+</footer>
+
+<style>
+    .footer {
+        background-color: var(--color-light);
+    }
+
+    .footer__inner {
+        display: grid;
+        justify-items: center;
+        gap: 2rem;
+        padding-block: 2.5rem;
+    }
+
+    .footer__menu {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem 1.5rem;
+    }
+
+    .footer__link {
+        transition: color var(--transition);
+    }
+
+    .footer__link:hover {
+        color: var(--color-text-dark);
+    }
+
+    .footer__bottom {
+        padding-block: 1.75rem;
+        text-align: center;
+        color: var(--color-text-light);
+        border-top: 1px solid var(--color-border);
+    }
+
+    @media (min-width: 64rem) {
+        .footer__inner {
+            grid-template-columns: 1fr 2fr 1fr;
+        }
+
+        .footer__inner > :global(:first-child) {
+            justify-self: start;
+        }
+
+        .footer__inner > :global(:last-child) {
+            justify-self: end;
+        }
+    }
+</style>

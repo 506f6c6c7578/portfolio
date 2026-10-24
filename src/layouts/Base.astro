@@ -1,0 +1,47 @@
+---
+import { Font } from "astro:assets";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Seo from "../components/Seo.astro";
+import { site } from "../data/site";
+import { getScriptHash } from "../lib/csp";
+import navigationScript from "../scripts/navigation.js?raw";
+import themeScript from "../scripts/theme.js?raw";
+import "../styles/global.css";
+
+interface Props {
+    title: string;
+    description: string;
+    noindex?: boolean;
+}
+
+const { title, description, noindex } = Astro.props;
+
+for (const script of [themeScript, navigationScript]) {
+    Astro.csp?.insertScriptHash(getScriptHash(script));
+}
+---
+
+<!doctype html>
+<html lang={site.lang} dir="ltr">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script is:inline set:html={themeScript}/>
+    <Seo title={title} description={description} noindex={noindex}/>
+    <Font cssVariable="--font-heading" preload/>
+    <Font cssVariable="--font-body" preload/>
+    <slot name="head"/>
+</head>
+<body>
+<a class="skip-link btn btn-primary" href="#contenu">Aller au contenu principal</a>
+<Header/>
+<main id="contenu">
+    <slot/>
+</main>
+<Footer/>
+<script>
+    import "../scripts/reveal";
+</script>
+</body>
+</html>

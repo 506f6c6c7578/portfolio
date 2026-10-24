@@ -1,0 +1,132 @@
+---
+import { ArrowUpRight, FolderCode, MapPin } from "@lucide/astro";
+import { siGithub } from "simple-icons";
+import BrandIcon from "./BrandIcon.astro";
+import { projectsSection } from "../data/content";
+import { projects, sections, site } from "../data/site";
+
+const headingId = `${sections.projects}-titre`;
+---
+
+<section id={sections.projects} class="section" aria-labelledby={headingId}>
+    <div class="container">
+        <header class="projects__header" data-animate="up">
+            <h2 id={headingId} class="projects__title">{projectsSection.title}</h2>
+            <p>{projectsSection.description}</p>
+        </header>
+
+        <ul class="projects__list">
+            {
+                projects.map(({ title, description, technologies, url, repository }, index) => (
+                        <li class="project" data-animate="up" data-animate-delay={index * 0.12}>
+                            <article class="project__body">
+                                <FolderCode class="project__icon" size={32} stroke-width={1.75}/>
+                                <h3 class="project__title h5">{title}</h3>
+                                <p class="project__description">{description}</p>
+                                <ul class="tags">
+                                    {technologies.map(({ label, icon }) => (
+                                            <li class="tag">
+                                                <BrandIcon icon={icon} size={14}/>
+                                                {label}
+                                            </li>
+                                    ))}
+                                </ul>
+                                <div class="project__links">
+                                    {repository && (
+                                            <a class="project__link" href={repository}
+                                               target="_blank" rel="noopener noreferrer">
+                                                <BrandIcon icon={siGithub} size={18}/>
+                                                Code source<span
+                                                    class="visually-hidden"> de {title}</span>
+                                            </a>
+                                    )}
+                                    {url === site.url ? (
+                                            <span class="project__link">
+                    <MapPin size={18}/>
+                    Vous êtes ici
+                  </span>
+                                    ) : (
+                                        url && (
+                                                <a class="project__link" href={url} target="_blank"
+                                                   rel="noopener noreferrer">
+                                                    <ArrowUpRight size={18}/>
+                                                    Voir le site<span
+                                                        class="visually-hidden"> de {title}</span>
+                                                </a>
+                                        )
+                                    )}
+                                </div>
+                            </article>
+                        </li>
+                ))
+            }
+        </ul>
+    </div>
+</section>
+
+<style>
+    .projects__header {
+        max-width: 40rem;
+        margin: 0 auto 3rem;
+        text-align: center;
+    }
+
+    .projects__title {
+        margin-bottom: 1rem;
+    }
+
+    .projects__list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 24rem));
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    .project__body {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        height: 100%;
+        padding: 2.5rem 1.75rem;
+        background-color: var(--color-light);
+        border-radius: var(--radius-lg);
+    }
+
+    .project__body :global(.project__icon) {
+        margin-bottom: 1rem;
+        color: var(--color-text-dark);
+    }
+
+    .project__description {
+        flex-grow: 1;
+    }
+
+    .project__links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .project__link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        color: var(--color-text-dark);
+        text-underline-offset: 0.25rem;
+    }
+
+    a.project__link:hover {
+        text-decoration: underline;
+    }
+
+    .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+</style>

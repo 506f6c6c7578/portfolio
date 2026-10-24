@@ -1,0 +1,22 @@
+---
+import Banner from "../components/Banner.astro";
+import CallToAction from "../components/CallToAction.astro";
+import Feature from "../components/Feature.astro";
+import Projects from "../components/Projects.astro";
+import StructuredData from "../components/StructuredData.astro";
+import { features } from "../data/content";
+import { sections, site } from "../data/site";
+import Base from "../layouts/Base.astro";
+---
+
+<Base title={site.title} description={site.description}>
+    <StructuredData slot="head" type="ProfilePage" title={site.title}
+                    description={site.description}/>
+    <Banner/>
+    <div id={sections.passions}>
+        {features.map((feature, index) =>
+                <Feature feature={feature} reversed={index % 2 !== 0}/>)}
+    </div>
+    <Projects/>
+    <CallToAction/>
+</Base>

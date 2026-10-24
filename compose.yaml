@@ -1,0 +1,44 @@
+x-build: &build
+  context: .
+  args:
+    TURNSTILE_SITE_KEY: ${TURNSTILE_SITE_KEY:?TURNSTILE_SITE_KEY manquante}
+
+x-hardening: &hardening
+  restart: unless-stopped
+  read_only: true
+  tmpfs:
+    - /tmp:size=16m,mode=1777
+  cap_drop:
+    - ALL
+  security_opt:
+    - no-new-privileges:true
+
+services:
+  portfolio:
+    <<: *hardening
+    build:
+      <<: *build
+      target: web
+    expose:
+      - "8080"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 64M
+
+  contact:
+    <<: *hardening
+    build:
+      <<: *build
+      target: contact
+    environment:
+      RESEND_API_KEY: ${RESEND_API_KEY:?RESEND_API_KEY manquante}
+      TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY:?TURNSTILE_SECRET_KEY manquante}
+    expose:
+      - "4321"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 128M

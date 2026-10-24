@@ -1,0 +1,87 @@
+---
+import CheckList from "./CheckList.astro";
+import Illustration from "./Illustration.astro";
+import type { Feature } from "../data/content";
+
+interface Props {
+    feature: Feature;
+    reversed: boolean;
+}
+
+const { feature, reversed } = Astro.props;
+const headingId = `${feature.id}-titre`;
+---
+
+<section id={feature.id} class:list={["section-sm", { "bg-gradient": !reversed }]}
+         aria-labelledby={headingId}>
+    <div class:list={["container", "feature", { "feature--reversed": reversed }]}>
+        <Illustration class="feature__image" svg={feature.illustration}
+                      data-animate={reversed ? "right" : "left"}/>
+        <div class="feature__content" data-animate="up" data-animate-delay="0.15">
+            <h2 id={headingId} class="feature__title">{feature.title}</h2>
+            <p class="feature__text">{feature.content}</p>
+            <CheckList items={feature.bullets}/>
+            {
+                feature.link && (
+                            <a class="btn btn-primary feature__link" href={feature.link.href}>
+                                {feature.link.label}
+                            </a>
+                )
+            }
+        </div>
+    </div>
+</section>
+
+<style>
+    .feature {
+        display: grid;
+        gap: 1.5rem;
+        align-items: center;
+    }
+
+    .feature__image {
+        width: 100%;
+        max-width: 32.5rem;
+    }
+
+    .feature__title {
+        margin-bottom: 1rem;
+    }
+
+    .feature__text {
+        margin-bottom: 2rem;
+        font-size: 1.125rem;
+    }
+
+    .feature__link {
+        margin-top: 1.25rem;
+    }
+
+    @media (min-width: 48rem) {
+        .feature {
+            grid-template-columns: 5fr 7fr;
+            gap: 2rem;
+        }
+
+        .feature--reversed {
+            grid-template-columns: 7fr 5fr;
+        }
+
+        .feature--reversed .feature__image {
+            order: 2;
+            justify-self: end;
+        }
+    }
+
+    @media (min-width: 64rem) {
+        .feature {
+            grid-template-columns: 5fr 6fr;
+            justify-content: space-between;
+            gap: 4rem;
+        }
+
+        .feature--reversed {
+            grid-template-columns: 6fr 5fr;
+        }
+    }
+</style>

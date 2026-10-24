@@ -1,0 +1,34 @@
+---
+import { pages, site } from "../data/site";
+import { logoMarkPath } from "../lib/brand";
+---
+
+<a class="logo" href={pages.home} aria-label={`${site.name}, retour à l'accueil`}>
+    <svg class="logo__mark" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"
+         focusable="false">
+        <rect width="64" height="64" rx="14" fill="currentColor"></rect>
+        <path d={logoMarkPath} fill="none" stroke-width="5" stroke-linecap="round"
+              stroke-linejoin="round"></path>
+    </svg>
+    <span>{site.name}</span>
+</a>
+
+<style>
+    .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.625rem;
+        font-family: var(--font-heading);
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--color-text-dark);
+    }
+
+    .logo__mark {
+        color: var(--color-primary);
+    }
+
+    .logo__mark path {
+        stroke: var(--color-body);
+    }
+</style>

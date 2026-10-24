@@ -1,0 +1,89 @@
+---
+import { Picture } from "astro:assets";
+import { banner } from "../data/content";
+import { sections } from "../data/site";
+---
+
+<section id={sections.home} class="section banner" aria-labelledby="banner-titre">
+    <div class="container">
+        <div class="banner__content">
+            <h1 id="banner-titre" class="banner__title">{banner.title}</h1>
+            <p class="banner__text">{banner.content}</p>
+            <div class="banner__actions">
+                <a class="btn btn-primary"
+                   href={banner.primaryLink.href}>{banner.primaryLink.label}</a>
+                <a class="btn btn-outline-primary"
+                   href={banner.secondaryLink.href}>{banner.secondaryLink.label}</a>
+            </div>
+        </div>
+        <Picture
+                class="banner__image"
+                src={banner.image}
+                formats={["avif", "webp"]}
+                alt=""
+                widths={[600, 900, 1200]}
+                sizes="(min-width: 80rem) 1200px, 100vw"
+                loading="eager"
+                fetchpriority="high"
+        />
+    </div>
+</section>
+
+<style>
+    .banner {
+        padding-top: 3.5rem;
+    }
+
+    .banner__content {
+        max-width: 48rem;
+        margin: 0 auto 2rem;
+        text-align: center;
+    }
+
+    .banner__content > *,
+    .banner__image {
+        animation: banner-in 0.9s var(--ease-out) both;
+    }
+
+    .banner__content > :nth-child(2) {
+        animation-delay: 0.1s;
+    }
+
+    .banner__content > :nth-child(3) {
+        animation-delay: 0.2s;
+    }
+
+    .banner__image {
+        width: 100%;
+        animation-delay: 0.3s;
+    }
+
+    @keyframes banner-in {
+        from {
+            opacity: 0;
+            translate: 0 1.5rem;
+        }
+    }
+
+    .banner__title {
+        margin-bottom: 1rem;
+        font-size: var(--text-h3);
+    }
+
+    .banner__text {
+        margin-bottom: 2rem;
+    }
+
+    .banner__actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    @media (min-width: 64rem) {
+        .banner__title {
+            font-size: var(--text-h1);
+        }
+    }
+</style>

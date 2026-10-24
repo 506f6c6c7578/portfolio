@@ -1,0 +1,38 @@
+---
+import { Check } from "@lucide/astro";
+
+interface Props {
+    items: readonly string[];
+}
+
+const { items } = Astro.props;
+---
+
+<ul class="check-list">
+    {
+        items.map((item) => (
+                <li class="check-list__item">
+                    <Check class="check-list__icon" size={16} stroke-width={3}/>
+                    {item}
+                </li>
+        ))
+    }
+</ul>
+
+<style>
+    .check-list__item {
+        position: relative;
+        padding-left: 1.5rem;
+    }
+
+    .check-list__item + .check-list__item {
+        margin-top: 1rem;
+    }
+
+    .check-list__item :global(.check-list__icon) {
+        position: absolute;
+        top: 0.3rem;
+        left: 0;
+        color: var(--color-text-dark);
+    }
+</style>

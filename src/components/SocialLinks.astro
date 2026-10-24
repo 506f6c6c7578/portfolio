@@ -1,0 +1,47 @@
+---
+import { Mail } from "@lucide/astro";
+import BrandIcon from "./BrandIcon.astro";
+import { site } from "../data/site";
+---
+
+<ul class="socials">
+    {
+        site.socials.map(({ label, href, icon }) => (
+                <li>
+                    <a class="socials__link" href={href} target="_blank"
+                       rel="noopener noreferrer me" aria-label={`${label} de ${site.name}`}>
+                        <BrandIcon icon={icon}/>
+                    </a>
+                </li>
+        ))
+    }
+    <li>
+        <a class="socials__link" href={`mailto:${site.email}`}
+           aria-label={`Envoyer un e-mail à ${site.name}`}>
+            <Mail size={20}/>
+        </a>
+    </li>
+</ul>
+
+<style>
+    .socials {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .socials__link {
+        display: grid;
+        place-items: center;
+        width: 2.25rem;
+        height: 2.25rem;
+        color: var(--color-on-primary);
+        background-color: var(--color-primary);
+        border-radius: var(--radius-sm);
+        transition: opacity var(--transition);
+    }
+
+    .socials__link:hover {
+        opacity: 0.8;
+    }
+</style>
