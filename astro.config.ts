@@ -15,6 +15,9 @@ export default defineConfig({
         inlineStylesheets: "always"
     },
     vite: {
+        build: {
+            assetsInlineLimit: (filePath) => /[\\/]src[\\/]assets[\\/]logos[\\/]/.test(filePath) ? false : undefined
+        },
         plugins: [
             {
                 name: "bundle-server-dependencies",
