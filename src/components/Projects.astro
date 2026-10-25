@@ -17,10 +17,14 @@ const headingId = `${sections.projects}-titre`;
 
         <ul class="projects__list">
             {
-                projects.map(({ title, description, technologies, url, repository }, index) => (
+                projects.map(({ title, description, technologies, logo, url, repository }, index) => (
                         <li class="project" data-animate="up" data-animate-delay={index * 0.12}>
                             <article class="project__body">
-                                <FolderCode class="project__icon" size={32} stroke-width={1.75}/>
+                                {logo ? (
+                                        <img class="project__logo" src={logo} alt="" width="64" height="64"/>
+                                ) : (
+                                        <FolderCode class="project__icon" size={32} stroke-width={1.75}/>
+                                )}
                                 <h3 class="project__title h5">{title}</h3>
                                 <p class="project__description">{description}</p>
                                 <ul class="tags">
@@ -92,8 +96,17 @@ const headingId = `${sections.projects}-titre`;
         border-radius: var(--radius-lg);
     }
 
+    .project__logo,
     .project__body :global(.project__icon) {
         margin-bottom: 1rem;
+    }
+
+    .project__logo {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .project__body :global(.project__icon) {
         color: var(--color-text-dark);
     }
 

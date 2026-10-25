@@ -1,4 +1,13 @@
-import { siAstro, siCss, siDocker, siGithub, siNginx, siTypescript } from 'simple-icons';
+import astrolabeLogo from '../assets/logos/astrolabe.svg?url';
+import portfolioLogo from '../assets/logos/portfolio.svg?url';
+import {
+    siAstro,
+    siCss,
+    siDocker,
+    siGithub,
+    siNginx,
+    siTypescript
+} from 'simple-icons';
 import type { BrandIcon } from '../lib/brand-icons';
 
 interface SocialLink {
@@ -24,6 +33,7 @@ interface Project {
     title: string;
     description: string;
     technologies: readonly Technology[];
+    logo?: string;
     url?: string;
     repository?: string;
 }
@@ -99,7 +109,10 @@ export const contactLink: NavigationLink = {
     href: pages.contact
 };
 
-export const siteNavigation: readonly NavigationLink[] = [...navigation, contactLink];
+export const siteNavigation: readonly NavigationLink[] = [
+    ...navigation,
+    contactLink
+];
 
 export const legalLinks = {
     notice: { label: 'Mentions légales', href: pages.legalNotice },
@@ -126,7 +139,23 @@ export const projects: readonly Project[] = [
             technologies.docker,
             technologies.nginx
         ],
+        logo: portfolioLogo,
         url: site.url,
         repository: site.repository
+    },
+    {
+        title: 'Astrolabe',
+        description:
+            "Un planificateur d'observation astronomique : il analyse la nuit, la Lune, la météo, les planètes et les objets Messier pour identifier les meilleurs créneaux d'observation.",
+        logo: astrolabeLogo,
+        technologies: [
+            technologies.astro,
+            technologies.typescript,
+            technologies.css,
+            technologies.docker,
+            technologies.nginx
+        ],
+        url: 'https://astro.paulviandier.com',
+        repository: 'https://github.com/506f6c6c7578/Astrolabe'
     }
 ];
