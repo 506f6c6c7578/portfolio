@@ -129,9 +129,9 @@ docker compose up -d --build
 ```
 
 Les services se contentent d'exposer leurs ports sur le réseau Compose, sans les publier sur l'hôte.
-Place un reverse proxy ou un tunnel (par exemple Cloudflare Tunnel) sur le même réseau et redirige
-le trafic vers `portfolio:8080`. Nginx lit l'adresse du client depuis l'en-tête `CF-Connecting-IP`
-pour la limitation de débit.
+Place un reverse proxy (par exemple Traefik) sur le même réseau et redirige le trafic vers
+`portfolio:8080`. Nginx lit l'adresse du pair transmise par le proxy dans `X-Forwarded-For` et ne
+se fie à `CF-Connecting-IP` que si ce pair appartient aux plages d'adresses de Cloudflare.
 
 ## Sécurité
 
@@ -152,7 +152,8 @@ pour la limitation de débit.
 <details>
 <summary><strong>Nginx</strong></summary>
 
-- Seules les méthodes `GET` et `HEAD` sont acceptées, ainsi que `POST` sur `/_actions/contact`.
+- Seules les méthodes `GET` et `HEAD` sont acceptées, sauf sur `/_actions/contact` qui n'accepte
+  que `POST`.
 - Le point d'accès de contact est limité en débit par adresse IP et renvoie une réponse `429`
   structurée.
 - En-têtes de sécurité sur chaque réponse : HSTS, `frame-ancestors 'none'`,
@@ -168,6 +169,8 @@ pour la limitation de débit.
 <summary><strong>Conteneurs</strong></summary>
 
 - Images de base fixées par version et par empreinte SHA-256.
+- Paquets système mis à jour au build, gestionnaires de paquets Node (npm, Yarn, Corepack) retirés
+  de l'image d'exécution.
 - Contexte de build minimal grâce à un `.dockerignore` en liste blanche.
 - Les deux services tournent avec des utilisateurs non root, et les fichiers applicatifs
   appartiennent à `root`.
