@@ -3,7 +3,7 @@ import astrophysicsIllustration from "../assets/illustrations/astrophysique.svg?
 import contactIllustration from "../assets/illustrations/contact.svg?raw";
 import securityIllustration from "../assets/illustrations/cybersecurite.svg?raw";
 import programmingIllustration from "../assets/illustrations/programmation.svg?raw";
-import { contactLink, type NavigationLink, pages, sections, site } from "./site";
+import { contactLink, legalLinks, type NavigationLink, pages, sections, site } from "./site";
 
 export interface Feature {
     id: string;
@@ -102,6 +102,7 @@ export const contact = {
     title: "Me contacter",
     intro: "Une question, un projet intéressant ou simplement l'envie de discuter d'astrophysique, de programmation ou de cybersécurité ? Remplis le formulaire, je te réponds dès que possible.",
     emailPrompt: "Tu préfères l'e-mail ? Écris-moi à",
+    privacyNotice: ["Tes informations servent uniquement à répondre à ton message. En savoir plus : ", legalLinks.privacy, "."],
     illustration: contactIllustration,
     fields: {
         email: { label: "Adresse e-mail", placeholder: "toi@exemple.fr" },

@@ -1,0 +1,27 @@
+---
+import type { RichText } from "../data/site";
+
+interface Props {
+    text: RichText;
+}
+
+const { text } = Astro.props;
+const segments = typeof text === "string" ? [text] : text;
+---
+
+{
+    segments.map((segment) =>
+            typeof segment === "string" ? segment : (
+                    <a class="rich-text__link" href={segment.href}>{segment.label}</a>
+            )
+    )
+}
+
+<style>
+    .rich-text__link {
+        font-weight: 600;
+        color: var(--color-text-dark);
+        text-decoration: underline;
+        text-underline-offset: 0.25rem;
+    }
+</style>

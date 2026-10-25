@@ -1,0 +1,58 @@
+---
+import CheckList from "../components/CheckList.astro";
+import RichText from "../components/RichText.astro";
+import type { LegalBlock, LegalDocument, LegalList } from "../data/legal";
+import { site } from "../data/site";
+import Base from "./Base.astro";
+
+type Props = LegalDocument;
+
+const { link, description, updatedAt, sections } = Astro.props;
+
+const updatedLabel = new Intl.DateTimeFormat(site.lang, { dateStyle: "long", timeZone: "UTC" })
+    .format(new Date(updatedAt));
+
+const isList = (block: LegalBlock): block is LegalList =>
+    typeof block !== "string" && "items" in block;
+---
+
+<Base title={`${link.label} | ${site.name}`} description={description}>
+    <article class="section-sm">
+        <div class="container legal">
+            <header>
+                <h1 class="h2">{link.label}</h1>
+                <p class="legal__updated">
+                    Dernière mise à jour : <time datetime={updatedAt}>{updatedLabel}</time>
+                </p>
+            </header>
+            {
+                sections.map(({ title, blocks }) => (
+                        <section class="legal__section">
+                            <h2 class="h5">{title}</h2>
+                            {blocks.map((block) => isList(block) ? <CheckList items={block.items}/> : (
+                                    <p><RichText text={block}/></p>
+                            ))}
+                        </section>
+                ))
+            }
+        </div>
+    </article>
+</Base>
+
+<style>
+    .legal {
+        display: grid;
+        gap: 2.5rem;
+        max-width: 55rem;
+    }
+
+    .legal__updated {
+        margin-top: 0.75rem;
+        color: var(--color-text-light);
+    }
+
+    .legal__section {
+        display: grid;
+        gap: 1rem;
+    }
+</style>

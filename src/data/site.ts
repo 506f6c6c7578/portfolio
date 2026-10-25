@@ -13,6 +13,8 @@ export interface NavigationLink {
     section?: string;
 }
 
+export type RichText = string | readonly (string | NavigationLink)[];
+
 interface Technology {
     label: string;
     icon: BrandIcon;
@@ -39,6 +41,7 @@ export const site = {
     description:
         "Paul Viandier, passionné d'astrophysique, de programmation et de cybersécurité. Découvre mes projets Python et web, mes expérimentations et ce qui m'anime.",
     email: 'contact@paulviandier.com',
+    repository: 'https://github.com/506f6c6c7578/portfolio',
     socials: [
         {
             label: 'GitHub',
@@ -61,7 +64,9 @@ export const interests: readonly string[] = [
 export const pages = {
     home: '/',
     about: '/about-me',
-    contact: '/contact'
+    contact: '/contact',
+    legalNotice: '/legal-notice',
+    privacy: '/privacy-policy'
 } as const;
 
 export const sections = {
@@ -96,6 +101,11 @@ export const contactLink: NavigationLink = {
 
 export const siteNavigation: readonly NavigationLink[] = [...navigation, contactLink];
 
+export const legalLinks = {
+    notice: { label: 'Mentions légales', href: pages.legalNotice },
+    privacy: { label: 'Politique de confidentialité', href: pages.privacy }
+} as const satisfies Record<string, NavigationLink>;
+
 const technologies = {
     astro: { label: 'Astro', icon: siAstro },
     typescript: { label: 'TypeScript', icon: siTypescript },
@@ -117,6 +127,6 @@ export const projects: readonly Project[] = [
             technologies.nginx
         ],
         url: site.url,
-        repository: 'https://github.com/506f6c6c7578/portfolio'
+        repository: site.repository
     }
 ];

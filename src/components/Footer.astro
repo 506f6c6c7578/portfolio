@@ -1,7 +1,7 @@
 ---
 import Logo from "./Logo.astro";
 import SocialLinks from "./SocialLinks.astro";
-import { site, siteNavigation } from "../data/site";
+import { legalLinks, site, siteNavigation } from "../data/site";
 
 const year = new Date().getFullYear();
 ---
@@ -25,7 +25,22 @@ const year = new Date().getFullYear();
         <SocialLinks/>
     </div>
     <div class="footer__bottom">
-        <p class="container">© {year} {site.name}. Tous droits réservés.</p>
+        <div class="container footer__legal">
+            <p>© {year} {site.name}. Tous droits réservés.</p>
+            <nav aria-label="Informations légales">
+                <ul class="footer__menu">
+                    {
+                        Object.values(legalLinks).map(({ label, href }) => (
+                                <li>
+                                    <a class="footer__link" href={href}>
+                                        {label}
+                                    </a>
+                                </li>
+                        ))
+                    }
+                </ul>
+            </nav>
+        </div>
     </div>
 </footer>
 
@@ -63,6 +78,12 @@ const year = new Date().getFullYear();
         border-top: 1px solid var(--color-border);
     }
 
+    .footer__legal {
+        display: grid;
+        justify-items: center;
+        gap: 0.75rem;
+    }
+
     @media (min-width: 64rem) {
         .footer__inner {
             grid-template-columns: 1fr 2fr 1fr;
@@ -74,6 +95,11 @@ const year = new Date().getFullYear();
 
         .footer__inner > :global(:last-child) {
             justify-self: end;
+        }
+
+        .footer__legal {
+            display: flex;
+            justify-content: space-between;
         }
     }
 </style>

@@ -41,6 +41,8 @@ durcis.
   rendus depuis du SVG au moment du build avec `sharp`.
 - **Formulaire de contact** reposant sur une action Astro : validation avec Zod, protection
   anti-spam Cloudflare Turnstile et envoi via l'API Resend.
+- **Pages légales** : mentions légales et politique de confidentialité générées depuis des
+  données typées, avec une mention d'information sous le formulaire de contact.
 - **Source de vérité unique** : les métadonnées du site, la navigation, les projets et le contenu
   des pages sont centralisés dans [`src/data`](src/data).
 
@@ -172,11 +174,12 @@ pour la limitation de débit.
 - Systèmes de fichiers racine en lecture seule, petit `tmpfs` pour `/tmp`, toutes les capacités
   Linux retirées et `no-new-privileges` activé.
 - Limites de CPU et de mémoire, et health checks pour chaque service.
+- Journaux Docker plafonnés en taille et purgés automatiquement par rotation.
 
 </details>
 
-Tu as trouvé une vulnérabilité ? Signale-la en privé
-à [contact@paulviandier.com](mailto:contact@paulviandier.com) plutôt que d'ouvrir une issue
+Tu as trouvé une vulnérabilité ? Signale-la en privé via
+le [formulaire de contact](https://paulviandier.com/contact) plutôt que d'ouvrir une issue
 publique.
 
 ## Structure du projet
@@ -205,15 +208,15 @@ publique.
 
 Ce dépôt est public uniquement pour être consulté. Toute copie, modification, redistribution ou
 réutilisation, même partielle, du code, des textes ou des visuels est interdite sans autorisation
-écrite préalable. Consulte le fichier [`LICENSE`](LICENSE) pour le détail, ou écris-moi
-à [contact@paulviandier.com](mailto:contact@paulviandier.com) pour toute demande.
+écrite préalable. Consulte le fichier [`LICENSE`](LICENSE) pour le détail, ou écris-moi via
+le [formulaire de contact](https://paulviandier.com/contact) pour toute demande.
 
 ## Contact
 
 <div align="center">
 
 [![Site web](https://img.shields.io/badge/paulviandier.com-0F172A?style=for-the-badge&logo=astro&logoColor=white)](https://paulviandier.com)
-[![E-mail](https://img.shields.io/badge/E--mail-contact%40paulviandier.com-EA4335?style=for-the-badge)](mailto:contact@paulviandier.com)
+[![Contact](https://img.shields.io/badge/Contact-paulviandier.com%2Fcontact-EA4335?style=for-the-badge)](https://paulviandier.com/contact)
 [![GitHub](https://img.shields.io/badge/GitHub-506f6c6c7578-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/506f6c6c7578)
 
 </div>

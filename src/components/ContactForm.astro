@@ -1,5 +1,6 @@
 ---
 import { LoaderCircle, Send } from "@lucide/astro";
+import RichText from "./RichText.astro";
 import { contact } from "../data/content";
 import { type ContactField, contactFieldLimits, contactFormText } from "../lib/contact";
 
@@ -44,6 +45,10 @@ const fields = [
     }
 
     <div class="contact-form__challenge" data-contact-challenge></div>
+
+    <p class="contact-form__notice">
+        <RichText text={contact.privacyNotice}/>
+    </p>
 
     <div class="contact-form__footer">
         <button class="btn btn-primary contact-form__submit" type="submit" disabled
@@ -126,6 +131,11 @@ const fields = [
 
     .contact-form__challenge:not([data-visible]) {
         margin-top: calc(var(--contact-form-gap) * -1);
+    }
+
+    .contact-form__notice {
+        font-size: 0.875rem;
+        color: var(--color-text-light);
     }
 
     .contact-form__footer {
