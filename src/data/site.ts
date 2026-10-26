@@ -1,4 +1,5 @@
 import astrolabeLogo from '../assets/logos/astrolabe.svg?url';
+import exoscopeLogo from '../assets/logos/exoscope.svg?url';
 import portfolioLogo from '../assets/logos/portfolio.svg?url';
 import {
     siAstro,
@@ -157,5 +158,20 @@ export const projects: readonly Project[] = [
         ],
         url: 'https://astro.paulviandier.com',
         repository: 'https://github.com/506f6c6c7578/Astrolabe'
+    },
+    {
+        title: 'ExoScope',
+        description:
+            "Un explorateur pédagogique d'exoplanètes : il s'appuie sur le catalogue de la NASA pour rechercher, filtrer et comparer des milliers de mondes, et expliquer comment ils ont été découverts.",
+        logo: exoscopeLogo,
+        technologies: [
+            technologies.astro,
+            technologies.typescript,
+            technologies.css,
+            technologies.docker,
+            technologies.nginx
+        ],
+        url: 'https://exo.paulviandier.com',
+        repository: 'https://github.com/506f6c6c7578/ExoScope'
     }
 ];
