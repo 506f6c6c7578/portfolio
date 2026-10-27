@@ -1,3 +1,4 @@
+import aegisLogo from '../assets/logos/aegis.svg?url';
 import astrolabeLogo from '../assets/logos/astrolabe.svg?url';
 import exoscopeLogo from '../assets/logos/exoscope.svg?url';
 import portfolioLogo from '../assets/logos/portfolio.svg?url';
@@ -173,5 +174,20 @@ export const projects: readonly Project[] = [
         ],
         url: 'https://exo.paulviandier.com',
         repository: 'https://github.com/506f6c6c7578/ExoScope'
+    },
+    {
+        title: 'Aegis',
+        description:
+            "Un analyseur défensif de sécurité web : après vérification de la propriété d'un domaine par DNS, il examine HTTPS, TLS, en-têtes, CSP, cookies et redirections, puis produit un rapport priorisé et actionnable.",
+        logo: aegisLogo,
+        technologies: [
+            technologies.astro,
+            technologies.typescript,
+            technologies.css,
+            technologies.docker,
+            technologies.nginx
+        ],
+        url: 'https://aegis.paulviandier.com',
+        repository: 'https://github.com/506f6c6c7578/Aegis'
     }
 ];
