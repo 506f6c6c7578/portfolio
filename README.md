@@ -52,7 +52,7 @@ Le build produit deux images à partir d'un seul [`Dockerfile`](Dockerfile) mult
 
 | Service     | Image                         | Rôle                                                                     |
 |-------------|-------------------------------|--------------------------------------------------------------------------|
-| `portfolio` | `nginx-unprivileged` (Alpine) | Sert le site statique précompressé et relaie le point d'accès de contact |
+| `portfolio` | `nginx` (Alpine, non-root) | Sert le site statique précompressé et relaie le point d'accès de contact |
 | `contact`   | `node` (Alpine)               | Exécute le serveur Astro autonome qui traite l'action de contact         |
 
 ```mermaid
